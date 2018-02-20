@@ -1,0 +1,37 @@
+region,year,pop
+Africa,2000,803
+Africa,2010,1015
+Africa,2020,1261
+Africa,2030,1532
+Africa,2040,1827
+Africa,2050,2138
+Asia,2000,3691
+Asia,2010,4133
+Asia,2020,4531
+Asia,2030,4841
+Asia,2040,5049
+Asia,2050,5167
+Europe,2000,730
+Europe,2010,734
+Europe,2020,731
+Europe,2030,718
+Europe,2040,698
+Europe,2050,671
+North America,2000,486
+North America,2010,539
+North America,2020,595
+North America,2030,648
+North America,2040,695
+North America,2050,739
+Oceania,2000,30
+Oceania,2010,35
+Oceania,2020,39
+Oceania,2030,43
+Oceania,2040,46
+Oceania,2050,49
+South America,2000,348
+South America,2010,396
+South America,2020,440
+South America,2030,477
+South America,2040,504
+South America,2050,520

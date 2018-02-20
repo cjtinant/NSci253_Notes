@@ -1,0 +1,201 @@
+---
+title: "NSci253 - Lesson Plan 1"
+subtitle: "updated on 2/19/2018"
+author: "Charles Jason Tinant"
+date: "1/22/2018"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE)
+
+# Above is some code to tell R if you want to show code chunks 
+# (the gray areas that send commands to the R engine) in your final 
+# document.  The choices are yes (echo = TRUE) or no (echo = FALSE).
+```
+
+## Orientation  
+Hydrology is the study or knowledge of water.  Understanding our societal need of water is important because at every point in time there are places in the world that experience excesses or deficits of water that have an adverse impact on society and ecosystems.  Two growing areas of concern are an increasing human population that is stressing water resources, and global warming that is having an increasing impact on global food and water supplies. 
+
+Hydrology uses statistics to understand the average amount and variation of water as precipitation, soil water, ground water, stream flow, and water supply.  Other uses of statistics in hydrology are to evaluate potential impacts, and to design and implement strategies to protect people and ecosystems.  Statistical analysis is done using computer software.  Rather than teach how to incorrectly use spreadsheets for statistics, in this course you will learn some of the basics of the R statistical programming language, and apply R to solve hydrology problems.
+
+This week we are going to use global population data to learn some of the basic features of R.  You can think of R as the statistical engine, and R Studio as seats, steering wheel, and windshield of your statistical vehicle to hydrology.
+
+### Weekly Readings
+* Read syllabus
+* Read Chapter 1; pages 1-12, 16, 20, 26-29.
+* Read the r4beginners_v3.pdf in the Google Drive.  You can also download the article from https://www.computerworld.com/article/2497143/business-intelligence/business-intelligence-beginner-s-guide-to-r-introduction.html 
+
+### Homework Assignment
+You can answer these questions right from RStudio in the Rmd file.  Make sure you save your answers!
+
+Question 1a: What are the variables (columns) of the world_pop dataset?
+Question 1b: What are the variables (columns) of the world_pop2 dataset?
+Question 1c: What are the variables (columns) of the world_pop3 dataset?
+
+The question about variables is important because variables are groups of observations.  The world_pop dataset variables are the different decades.  In this case, observations are continents.
+
+Question 2a: What is the mean population in 2000?  
+Question 2b: What is the median population in 2000?
+Question 2c: Why are they different?  Hint: take a look at the graph.
+Question 2d: What is the mean population of all of the continents in all of the years?  Hint: you will need to look at a different summary than the 'world_pop' dataset.
+
+Question 3: What continent, other than Asia, is projected to grow substantially between 2000 and 2050?
+Question 4: What are some concerns that you might have as a water resources manager that this continent's population is growing so rapidly?
+\newpage
+
+### Reminders
+* Make sure you keep up to date on attendance and homework (see syllabus)
+* The textbook for this class is required (see syllabus)
+* Please bring your laptop to class.  Your own laptop is preferred over borrowing a computer.
+
+### Class Timeline
+9:00  - Introductions / Discuss syllabus  
+10:20 - 10-minute break  
+10:30 - Set up Google Drive accounts  
+10:50 - Follow the r4beginners_v3.pdf to install R & R-Studio  
+11:40 - Summary discussion  
+11:50 - Feedback to instructor  
+
+## Lecture Notes - Summary
+We will be going over the 'r4beginners_v3.pdf' handout in Google Drive
+
+
+## Steps for Week 1 In-class and Homework 
+This set of steps sets up a working directory for your work.
+
+1. If you have not done so already, follow the directions in 'Your first step' in the r4beginners.pdf document in the shared Google Drive class folder to install R and then RStudio.  The document is in a folder has a sub-folder named 'Readings and Programs'.  The folder also contains the most recent version of R and RStudio.
+
+2. Copy the contents of the shared NSci253-students folder into a folder you will be using for class.  If you are using your own computer (preferred), you can create a new folder in your own Google Drive.  This will be your working directory.  You should install the 'Backup and Sync' application from the Google Drive website to sync your Google Drive with a folder on your computer (if you do this, you might have to wait a little bit to have the cloud sync with your computer).
+
+3. You are going to set your working directory in this step.  Open R-Studio. Next, click on the 'Files' tab on the lower left panel in RStudio.  Navigate to the place you moved the files in step 2.  Set the working directory by clicking on 'More' -> 'Set as Working Directory'.
+
+4. Some other things you can do from the 'Files' tab:
+You can copy files within RStudio by checking the box to the left of the 'Data' file.  Next, click on the 'More' icon and then 'Copy'. 
+You can move files within RStudio by checking the box to the left of the 'Data' file.  Next, click on the 'More' icon and then 'Move'. 
+You can rename files within RStudio by checking the box to the left of the 'Data' file.  Next, click on the 'More' icon and then 'Rename'. 
+
+5. Make a copy the 'NSci253_LesPlan01.Rmd' file by checking the box next to the file, clicking 'More' -> 'Copy' and naming the copy 'your-name_LesPlan01'.
+
+6. Open the 'your-name_LesPlan01' file you copied in the last step.
+
+7. Next, run the code chunk below to install the 'tidyverse' package by putting your cursor on 'install.packages("tidyverse")' below and pressing Ctrl+enter.  The package should download for you.  The r4beginners_v3.pdf has more information on installing packages.  
+  
+```{r install_tidyverse, eval=FALSE}
+# This is the command to install a new package.
+# install.packages("tidyverse") # only need to do this once.
+```
+
+The gray areas above and below are code chunks.  They are the places you send requests to the R-engine.   
+
+```{r library, include=TRUE, message=FALSE}
+# <- this is a hash-tag.  It tells R that you are going to make a comment.
+# R will ignore comments, which is the text after the hash-tag.
+
+# Packages are libraries of new commands.  This opens the 'Tidyverse' package.
+library(tidyverse)
+
+# Now, take a look at the tidyverse by using the dictionary.  One way to 
+# get to the dictionary is by using a '?' as shown below.  Ctrl+enter on
+# '?tidyverse' below to see the description of the package.
+# ?tidyverse
+
+# You can also use the 'Help' tab in the lower left panel and type in the
+# command or package your wondering about in the search bar.
+```
+
+11.  Next, we are going to read in an existing dataset.  While other types of data sets can also be read into R, most people (myself included) prefer the .csv format.  The dataset is world population projections from 2000 to 2050.  I chose this dataset to highlight that the population of the world is growing, but our water resources are remaining constant.  The variable 'pop' in the data is the population in millions of people.
+
+```{r Getting_your_data_into_R, message=FALSE}
+# This is a general statement to read in a csv file
+# mydata <- read.csv(“path to filename.csv”)
+
+# we are going to bring in three different looks of the same 
+# world population data.  The benefit of setting a working directory
+# is that you don't need to specify a long path to tell R where
+# your data is at.
+
+# Ctrl+Enter to read in the three looks at world population data.
+world_pop <- read_csv("world_pop.csv")
+world_pop2 <- read_csv("world_pop2.csv")
+world_pop3 <- read_csv("world_pop3.csv")
+```
+
+12. Now that you have your data tidied and into R (which is often the hardest part) you can take a look at the data, and summarize it. 
+
+This is for 'world_pop'.
+
+```{r summarize_dataset1}
+
+head(world_pop) # shows the head (top) of the dataset
+str(world_pop) # shows the types of varables in the dataset
+
+# You can also view the data in a spreadsheet format 
+# by uncommenting the line below.
+# View(world_pop) # shows the data in a 'spreadsheet' format
+
+summary(world_pop) # creates a summary of the data
+```
+
+Below is for 'world_pop2'.
+
+```{r summarize_dataset2}
+world_pop2 <- read.csv("world_pop2.csv")
+head(world_pop2) # shows the head of the dataset
+str(world_pop2) # shows the types of varables in the dataset
+
+# View(world_pop2) # shows the data in a 'spreadsheet' format
+
+summary(world_pop2) # creates a summary of the data
+```
+
+Below is for 'world_pop3'.
+
+```{r summarize_dataset3}
+world_pop3 <- read.csv("world_pop3.csv")
+head(world_pop3) # shows the head of the dataset
+str(world_pop3) # shows the types of varables in the dataset
+
+# View(world_pop3) # shows the data in a 'spreadsheet' format
+
+summary(world_pop3) # creates a summary of the data
+```
+
+```{r plot_data}
+# This is a plot using a package called ggplot. 
+# ggplot uses grammer of graphics.  I <3 ggplot!
+
+ggplot(world_pop3, aes(year, pop, color = region)) +
+  geom_point() +
+  geom_smooth(method = 'lm') +
+  theme_bw() 
+```
+
+```{r background, include=FALSE, eval=FALSE}
+# Background work
+# This section does not need to be run.  It is how I transformed some of
+# the world_pop data from its original form to other forms.
+
+# Purpose
+# This section is to prepare the data to graph a little easier,
+# and to transpose to see continents
+
+# library(janitor)   # fixes lots of data formatting issues
+world_pop <- read_csv("world_pop.csv")
+
+# gather the data for graphing
+world_pop2 <- world_pop %>%
+  gather(key = year, value = pop, -Region) %>%
+  arrange(Region) %>%
+  clean_names()
+write_csv(world_pop2, "world_pop2.csv")
+
+# transpose the 'world_pop' dataset
+world_pop2 <- world_pop %>%
+         gather(year, value, -Region) %>% 
+         spread(Region, value) %>%
+         filter(year != "land_area")
+```
+
