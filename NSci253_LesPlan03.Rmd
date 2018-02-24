@@ -4,7 +4,6 @@ subtitle: Lesson Plan 3 - Precipitation
 author: "Charles Jason Tinant"
 date: "2/19/2018"
 output:
-  pdf_document: default
   html_document:
     df_print: paged
 fontsize: 12pt
@@ -41,9 +40,10 @@ Precipitation is the single most important variable driving hydrologic processes
 ## Homework (note there will be another couple of problems )
 You are welcome to turn in homework in Rmd, pdf, html or Word.  Upload the file into a folder with your name in Google Drive. 
 
-1. Vocabulary - Summarize the terms: weather, climate, frontal precipitation, convection, orographic, stratosphere, troposphere, jet stream
+###1. Vocabulary - Summarize the terms: weather, climate, frontal precipitation, convection, orographic, stratosphere, troposphere, jet stream
+write your answer here...
 
-2. Use the following link: [Koeppen Climate](http://koeppen-geiger.vu-wien.ac.at/pdf/KG_USA_UScounty.pdf) to download a map of Koeppen climates for the United States. What is the climate for Western South Dakota?  What is the climate for Eastern South Dakota.
+###2. Use the following link: [Koeppen Climate](http://koeppen-geiger.vu-wien.ac.at/pdf/KG_USA_UScounty.pdf) to download a map of Koeppen climates for the United States. What is the climate for Western South Dakota?  What is the climate for Eastern South Dakota.
 
 2. Use the following link: [Drought Monitor](http://droughtmonitor.unl.edu/) - What is the drought intensity for this week for the county you live in? If your county is in drought, then is the drought short-term or long-term?  What is the drought summary for the High Plains?  What is the the drought summary for the West?
 
