@@ -1,11 +1,12 @@
 ---
-title: "NSci233 Notes- Week 5"
-subtitle: Lesson Plan 3 - Precipitation
+title: "NSci233 Notes- Week 6"
 author: "Charles Jason Tinant"
-date: "2/19/2018"
+date: "2/22/2018"
 output:
+  pdf_document: default
   html_document:
     df_print: paged
+subtitle: Lesson Plan 3 - Precipitation Week 3 of 3
 fontsize: 12pt
 ---
 
@@ -22,7 +23,7 @@ fontsize: 12pt
 
 * If you have not already, please download the following software to start the remote control tool TeamViewer Quicksupport: http://connect.teamviewer.com/v13   This way, I can take a look at your computer screen and resolve issues.
 
-* The password for your OLC account in Gmail is **r2FAkyV-9p**.  Please log in ASAP to Gmail using your OLC account name and this password.  Then change the password. 
+* The password for your OLC account in Gmail is experiencing technical issues that I hope to resolve as soon as possible. 
 
 ## Overview
 Precipitation is the single most important variable driving hydrologic processes and events, because it replenishes soil moisture, lakes and streams, and groundwater.  Precipitation is any form of solid or liquid water the falls from the atmosphere to the earth's surface.  Precipitation can be thought about in terms of events, as averages over a period of time, or as deviations from the normal or "adequate" amount.  In this section we are going to discuss the role of precipition in climate, what causes precipiation, precipitation events, and rainfall frequency.
@@ -35,25 +36,28 @@ Precipitation is the single most important variable driving hydrologic processes
 
 ## Reading Assignment
 - Read sections 2.7 - 2.8 of the text 
-- Article on Capetown water supply (Cape Town, South Africa water crisis)[https://www.vox.com/world/2018/2/9/16964416/cape-town-water-crisis-day-zero-south-africa]
-
-## Homework (note there will be another couple of problems )
+- Article on [Cape Town, South Africa water crisis](https://www.vox.com/world/2018/2/9/16964416/cape-town-water-crisis-day-zero-south-africa) hotlinked and at https://www.vox.com/world/2018/2/9/16964416/cape-town-water-crisis-day-zero-south-africa  
+- **new reading**  
+[Data Visualization with ggplot2](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf) hotlinked and at https://www.vox.com/world/2018/2/9/16964416/cape-town-water-crisis-day-zero-south-africa  
+## Homework (note there are be another couple of new problems from this week)
 You are welcome to turn in homework in Rmd, pdf, html or Word.  Upload the file into a folder with your name in Google Drive. 
 
-###1. Vocabulary - Summarize the terms: weather, climate, frontal precipitation, convection, orographic, stratosphere, troposphere, jet stream
-write your answer here...
+1. Vocabulary - Summarize the terms: weather, climate, frontal precipitation, convection, orographic, stratosphere, troposphere, jet stream
 
-###2. Use the following link: [Koeppen Climate](http://koeppen-geiger.vu-wien.ac.at/pdf/KG_USA_UScounty.pdf) to download a map of Koeppen climates for the United States. What is the climate for Western South Dakota?  What is the climate for Eastern South Dakota.
+2. Use the following link: [Koeppen Climate](http://koeppen-geiger.vu-wien.ac.at/pdf/KG_USA_UScounty.pdf) to download a map of Koeppen climates for the United States. What is the climate for Western South Dakota?  What is the climate for Eastern South Dakota.
 
 2. Use the following link: [Drought Monitor](http://droughtmonitor.unl.edu/) - What is the drought intensity for this week for the county you live in? If your county is in drought, then is the drought short-term or long-term?  What is the drought summary for the High Plains?  What is the the drought summary for the West?
 
-3. Calculate the effective depth in mm and volume of water in the last snowstorm in cubic meters for two watersheds.  Assume the snow has a 10% moisture content, 8 inches of snow fell over a 500 square mile watershed, and 6 inches of snow over a 300 square mile watershed.  Recall: 1 inch = 22.54 mm, 1 square mile = 2.59 square kilometers.
+3. Calculate the effective depth in mm and volume of water in the last snowstorm in cubic meters for two watersheds.  Assume the snow has a 10% moisture content, 8 inches of snow fell over a 500 square mile watershed, and 6 inches of snow over a 300 square mile watershed.  Recall: 1 inch = 22.54 mm, 1 square mile = 2.59 square kilometers.  Feel free to use either R or another approach.
 
 4. Look up the average monthly precipitation totals for the county you live in.  The Drought Monitor may be a helpful resource.  You can use a table to show the precipitation totals using the method discussed on the lower left part of page 2 of the R Markdown cheatsheet that you can download from https://www.rstudio.com/resources/cheatsheets/ 
 
 5. Pick three short-term and three long-term intensities for Table 2.5 and look up on a map the locations they are recorded in.  Based on the geographic location of these areas, what is the process causing the precipitation?
 
-## Looking forward to next week
+**new problems**
+6. Take a look at the graphs for the Cottonwood station below.  Identify: 1) the greatest 24-hour event, 2) the wettest year, 3) the dryest year, 4) the wettest decade, 5) the dryest decade, 6) is the region recieving more or less precipitation than 100 years ago.
+
+# Looking forward to next week
 Next week we will cover rainfall frequency distributions.
 \newpage
 
@@ -75,9 +79,10 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 ```
 
 ```{r library}
-library(here)
-library(tidyverse) # load the tidyverse package
-
+library("tidyverse") # load the tidyverse package 
+library("lubridate")
+library("here")
+library("janitor")
 here() # this checks where R thinks the working directory is...
 ```
 
@@ -163,13 +168,17 @@ rm(continent, depth_in, area_thos_km2)
 
 
 
-```
 
-```{r convert_in_to_mm_answer}
+
+
+
+# here is the answer
 precip <- precip %>%
   mutate(depth_mm = 22.54 * depth_in) %>%
   mutate(precip_km3 = area_thos_km2 * 10^3 * depth_mm *10^-6) %>%
   mutate(precip_m3 = precip_km3 * 10^9)
+print(precip)
+rm(precip)
 ```
 
 ### Geographical and seasonal variations
@@ -178,32 +187,51 @@ Precipitation varies by season and by location.  Average annual precipitation in
  <!-- Get into groups, and identify: 1) the sources of winter precipitation across the West Coast, 2) sources of summer and winter precipitation in the Dakotas, and 3) idnentify why the precipitation is so much lower in Idaho, Utah, Arizona, and New Mexico (4-20 inches vs up to 140 inches in the Pacific Northwest.
 -->
 
-### Historic time trends
-Climate tends to have distinct wetter and drier periods (Figure 2.7), with periods of 3-7, 15-20, 100 or so recurrence intervals having been defined.  Different approaches to showing variability in the region influenced by the Great Lakes using trend lines, running averages to smooth the data, and standard deviations.
-
-### Averaging over space and time
-The averaging period for rainfall depth and intensity can be important, depending on the question of interest.  Shorter averaging periods (15 minute data or shorter) can show differences in intensity over a storm.  However, daily or even monthly data is useful for most hydrologic budget studies.
-
-Precipitation is measured at points often using tipping rainfall buckets, or by pillows to measure the snowfall mass.  These point measurements can be averaged over an area such as a watershed using different approaches such as Theissen polygons and contouring that can be automated in ArcGIS or R.
-
-### Rainfall freqency distributions
-
-
-
-
-
-
-```{r}
-# I collected station data for Cottonwood station, SD from 
+```{r cottonwood_timeseries}
+# I downloaded station data for Cottonwood station, SD from 
 # NOAA's National Centers for Environmental Information (NCEI)
 # https://www.ncdc.noaa.gov/cdo-web/
+# the column descriptions are below.  The depths are in metric (mm)
 
+prcp_raw <- read_csv("1228041_cottonwood_sta.csv") %>%
+  # drop the columns we dont need
+  select(-(4:12)) %>%
+  select(-(6)) 
 
+prcp <- prcp_raw %>%
+  # clean the names
+  clean_names() %>%
+  # make a column of years, months, and days
+  mutate(year = year(date)) %>%
+  mutate(month = month(date)) %>%  
+  mutate(day = day(date)) %>%
+  # change the mm to inches
+  mutate(prcp_in = prcp/22.54) %>%
+  # drop 2018 from the data
+  filter(year != "2018")
 
+# this is to check on NA values
+prcp_na <- prcp %>%
+  filter(is.na(prcp))
 
+# this is to check on the dryest year
+prcp_test <- prcp %>%
+  filter(year == "1961")
 
+# make an annual precipitation 
+prcp_ann <- prcp %>%
+  # make a group of the years so that we can see how much prcp per year
+  group_by(year) %>%
+  summarize(prcp = sum(prcp, na.rm = TRUE),
+            prcp_in = sum(prcp_in, na.rm = TRUE)) %>%
+  arrange(prcp) %>%
+  # add back in the month and days (helps with the stuff below)
+  mutate(month = 1) %>%
+  mutate(day = 1) %>%
+  mutate(date = ymd(paste(year, month, day, sep="-"))) %>%
+  select(date, year, month, day, prcp, prcp_in)
 
-# Here is what the columns mean
+# Here is what the columns from the raw data mean:
 #EVAP - Evaporation of water from evaporation pan
 #DAPR - Number of days included in the multiday precipitation total (MDPR)
 #DAEV - Number of days included in the multiday evaporation total (MDEV)
@@ -216,6 +244,149 @@ Precipitation is measured at points often using tipping rainfall buckets, or by 
 #MDSF - Multiday snowfall total
 #SNWD - Snow depth
 #DASF - Number of days included in the multiday snow fall total (MDSF) 
+```
+
+## Averaging precipitation over space and time
+Precipitation is measured at points often using tipping rainfall buckets, or by pillows to measure the snowfall mass.  These point measurements can be averaged over an area such as a watershed using different approaches such as Theissen polygons and contouring that can be automated in ArcGIS or R.
+
+The averaging period for rainfall depth and intensity can be important, depending on the question of interest.  Shorter averaging periods (15 minute data or shorter) can show differences in intensity over a storm. Oftentimes, the magnitude of 24-hour rainfall events is used for hydrologic studies.  However, daily, monthly, or annual data is useful for most hydrologic budget studies depending on what you are interested in 
+
+```{r plot_24_hour_events}
+# make a plot of the daily precip values
+ggplot(prcp, aes(x = year, y = prcp_in)) +
+  geom_point() +
+  geom_smooth() +
+  theme_bw() +
+  labs(title = "24-hour precipitation events for the last hundred years",
+         subtitle = "COTTONWOOD Station, South Dakota; # USC00391972",
+       x = "Year", y = "Depth in Inches")
+```
+
+### Historic time trends
+Climate tends to have distinct wetter and drier periods (Figure 2.7), with periods of 3-7, 15-20, 100 or so recurrence intervals having been defined.  Different approaches to showing variability in the region influenced by the Great Lakes using trend lines, running averages to smooth the data, and standard deviations.  
+
+```{r create_and_plot_annual_events}
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# add the tidyquant package to create a l
+# The package 'tidyquant' is for integrating 
+# quantitative financial analysis tools with the tidyverse.  
+# Specifically, we want to create a rolling mean like in figure 2.7.  
+# This is the article I used to create the rolling mean.
+# http://www.business-science.io/timeseries-analysis/2017/07/23/tidy-timeseries-analysis-pt-2.html 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# install.packages("tidyquant")
+library(tidyquant)
+
+# We want to calculate a rolling mean to look at the three year and 
+# 10 year wetter and drier cycles.
+# The code was adapted from the article above...  Googling the thing
+# you want to do and seeing how others have done it is a great way
+# to learn new things.
+
+prcp_ann <- prcp_ann %>%
+    tq_mutate(
+        # tq_mutate arguments to select the data and apply a rolling mean
+        select     = prcp_in,
+        mutate_fun = rollapply, 
+        # rollapply arguements to make a 3-yr window for the mean
+        width      = 3,
+        align      = "right",
+        FUN        = mean,
+        # arguments about calculating the mean; 
+        # 'na.rm = TRUE' means remove the NA values
+        na.rm      = TRUE
+    ) %>%
+    tq_mutate(
+        # tq_mutate args
+        select     = prcp_in,
+        mutate_fun = rollapply,
+        # rollapply args (10-year rolling average)
+        width      = 10,
+        align      = "right",
+        FUN        = mean,
+        # mean args
+        na.rm      = TRUE
+    ) %>%
+  # rename the columns made above 
+  rename(mean_3yr = prcp_in.1) %>%
+  rename(mean_10yr = prcp_in.2)
+
+# make a plot of the annual precip values
+ggplot(prcp_ann, aes(x = date, y = prcp_in)) +
+  geom_point() +
+  geom_smooth() +
+  geom_line(aes(y = mean_3yr, color = "red")) +
+  geom_line(aes(y = mean_10yr)) +
+  theme_bw() +
+  labs(title = "Annual precipitation",
+         subtitle = "COTTONWOOD Station, South Dakota; # USC00391972",
+       x = "Year", y = "Depth in Inches") +
+  theme(legend.position = "none")
+```
+
+## Rainfall freqency distributions
+Hydrologists use estimates of the probability of rainfall events occurring to design hydrologic structures.  The main parameters used in estimation are *duration*, *intensity*, and *frequency*.  **Frequency** means the probability of an event of a particular magnitude or greater occurring, usually in a given year.  **Return interval**, also called **return period**, is the average period of time in years that an event of some magnitude or greater to occur.  Some examples for design are for agricultural drainage (10-year return interval), culverts (20 year recurrence interval), placement of houses near a stream (100-year return interval).  Return interval and frequency are two ways of communicating how often should we expect a flood (or drought) of a particular magnitude to return.  They two parameters are related by the formula $$Frequency,F = \frac{100}{return-interval,T}$$.
+
+```{r freq_return_interval}
+# make a vector of return intervals and turn it into a dataframe
+T_return_yr <- c(2, 5, 10, 20, 50, 100, 500)
+T_return_yr <- as.data.frame(T_return_yr)
+
+freq_return_table <- T_return_yr %>%
+  mutate(F_prob_percent = 100/T_return_yr)
+rm(T_return_yr)
+print(freq_return_table)
+```
+
+The approach above works great if you have all of the information in a population.  However, we almost never have this, so we use a statistical method to plot the observations of rainfall or floods or drought and estimate how rare or common is an event of a given magnitude.  Most of the methods mentioned in the text don't work great for hydrologic data (see Cunnane 1977 for a discussion of this), but the Hazen Method works pretty good.
+
+The Hazen method uses the following plotting position to find the percent probability, $F_a$ of some event *n* occurring in a given year is $$F_a = \frac{100(2n-1)}{2y}$$  
+where *n* is the event from littlest to biggest, *y* is the total number of events. 
+
+The 24-hour depth - duration - frequency (DDF) plot for Cottonwood Station is shown below.  If we were investigating this more in detail, I would take additional time to investigate the low precipitation years, to ensure there wasn't an error with the data. I marked the 50% probability of occurrance on the graph.  The graph reads that we should expect 16 or more inches of rain half of the time (odds = 1:1), so the recurrence interval is 2-years.  Note, that (if the data are correct) there seems to be a climate (something) that is leading to an upper-interval for precipitation in very wet years.
+
+<!--
+Get into groups and identify the depth of precipitation and recurrence interval at an 80% probability of occurrence (odds = 4:1).  Also the likelihood (both as a probability and as a recurrence interval) of 20-inches or greater precipitation in a given year at Cottonwood station. 
+-->
+
+```{r probability_ann_precip}
+# answers to the question above are: a) 14-inches; 
+#   b) 20% or 5-year recurrence (odds = 1:4)
+
+# we can create the variables we need to calculate the probability 
+# of wet years in Cottonwood station
+
+test <- prcp_ann %>%
+  # arrange prcp_in from biggest to littlest
+  arrange(desc(prcp_in)) %>%
+  # there are many ways to do things, but this is one way to get 
+  # observations from 1 to 109
+  rowid_to_column(var = "n") %>%
+  # this makes the max observation
+  mutate(y = n()) %>%
+  # this calculates the probability of the event or greater occurring
+  mutate(Fa_prob = (100 * ((2 * n) - 1))/(2 * y)) %>%
+  mutate(T_return_yr = 100 / Fa_prob)
+  
+# note that we are using a bit of trick here to get the number of 
+# observations, because day is the same all the way down. 
+ggplot(test, aes(x = Fa_prob, y = prcp_in)) +
+  # plot the x, y points
+  geom_point() +
+  # make a smooth line through the points using a linear model
+  geom_smooth(method = "lm") +
+  # make the x-axis a log 10 axis & make log ticks along the bottom
+  scale_x_log10() +
+  annotation_logticks(base = 10, sides = "b") +
+  # black and white theme
+  theme_bw() +
+  # labels for the graph
+  labs(title = "Depth - Duration - Frequency Curve",
+       subtitle = "Cottonwood Station, SD; 24-hour duration",
+       x = "Annual exceedance probability, percent",
+       y = "Precipitation depth, inches") +
+  # make a vertical line at the x = 50 intercept
+  geom_vline(xintercept = 50)
 ```
 
 
