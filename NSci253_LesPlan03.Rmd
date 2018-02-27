@@ -3,7 +3,6 @@ title: "NSci233 Notes- Week 6"
 author: "Charles Jason Tinant"
 date: "2/27/2018"
 output:
-  pdf_document: default
   html_document:
     df_print: paged
 subtitle: Lesson Plan 3 - Precipitation Week 3 of 4
