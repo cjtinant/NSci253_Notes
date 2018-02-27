@@ -6,24 +6,30 @@ output:
   pdf_document: default
   html_document:
     df_print: paged
-subtitle: Lesson Plan 3 - Precipitation Week 3 of 3
+subtitle: Lesson Plan 3 - Precipitation Week 3 of 4
 fontsize: 12pt
 ---
 
 ## Important Updates
-* We will be having a make-up class on Friday Feb 23 from 1-4 PM to work with R-Studio and the rest of Lesson Plan 3 to cover the snow day on Feb 20.  *Note this is a second rechedule of the last supplementary / make-up class that had to be cancelled due to weather.*  Becasue of the snow, I need to reschedule the appointments with two students to resolve issues.
+* Homework from Lesson Plans 1, 2, 3 is **due THIS FRIDAY**, March 3rd so that you are ready for the midterm.
+
+* We are going to add another 30-minutes to class to give addional technical help (e.g. 9:00 - 12:30)
 
 * The most recent versions of the lesson plans can be downloaded from https://github.com/cjtinant/NSci253_Notes 
 
+* If you have not already, please download the following software to start the remote control tool TeamViewer Quicksupport: http://connect.teamviewer.com/v13   This way, I can take a look at your computer screen and resolve issues.  
+
+
+## Old Updates
+* The password for your OLC account in Gmail is experiencing technical issues that I hope to resolve as soon as possible. 
+
+* We had a make-up class on Friday Feb 23 from 1-4 PM to work with R-Studio and the rest of Lesson Plan 3 to cover the snow day on Feb 20.  *Note this is a second rechedule of the last supplementary / make-up class that had to be cancelled due to weather.*  
+
 * I resolved the R-Studio issues for 11/13 students (85%) as of the end of week 4.  **There were two issues that were causing read_csv() not to work:**  
 
-* a space somewhere in the file folder path caused by naming the folder something like "R hydro". The way to resolve this is to use an "_" or a "-" if you want a space in a name.
+* a space somewhere in the file folder path caused by naming the folder something like "R hydro". The way to resolve this is to use an "_" or a "-" if you want a space in a name.  
 
-* the data that R was looking for using read_csv() was not in the same file as the lesson plan, which caused R to be confused.  The way to resolve this is to unzip the file, then copy all of the data you need into your working folder.
-
-* If you have not already, please download the following software to start the remote control tool TeamViewer Quicksupport: http://connect.teamviewer.com/v13   This way, I can take a look at your computer screen and resolve issues.
-
-* The password for your OLC account in Gmail is experiencing technical issues that I hope to resolve as soon as possible. 
+* the data that R was looking for using read_csv() was not in the same file as the lesson plan, which caused R to be confused.  The way to resolve this is to unzip the file, then copy all of the data you need into your working folder.  
 
 ## Overview
 Precipitation is the single most important variable driving hydrologic processes and events, because it replenishes soil moisture, lakes and streams, and groundwater.  Precipitation is any form of solid or liquid water the falls from the atmosphere to the earth's surface.  Precipitation can be thought about in terms of events, as averages over a period of time, or as deviations from the normal or "adequate" amount.  In this section we are going to discuss the role of precipition in climate, what causes precipiation, precipitation events, and rainfall frequency.
@@ -37,9 +43,9 @@ Precipitation is the single most important variable driving hydrologic processes
 ## Reading Assignment
 - Read sections 2.7 - 2.8 of the text 
 - Article on [Cape Town, South Africa water crisis](https://www.vox.com/world/2018/2/9/16964416/cape-town-water-crisis-day-zero-south-africa) hotlinked and at https://www.vox.com/world/2018/2/9/16964416/cape-town-water-crisis-day-zero-south-africa  
-- **new reading**  
-[Data Visualization with ggplot2](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf) hotlinked and at (https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf) 
 
+**new reading**  
+[Data Visualization with ggplot2](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf) hotlinked and at (https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf) 
 
 ## Homework (note there are another couple of new problems from this week)
 You are welcome to turn in homework in Rmd, pdf, html or Word.  Upload the file into a folder with your name in Google Drive. 
@@ -68,7 +74,6 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 ```
 
 ## Lecture Notes with R-code
-
 ```{r install_here}
 # one of the biggest issues we have been having the first four weeks 
 # of class is setting the workspace.  I have taught the most basic
@@ -168,11 +173,23 @@ rm(continent, depth_in, area_thos_km2)
 # Use the 'mutate' function
 # You can use the '%>%' called a pipe to connect parts together.
 
-
-
-
-
-
+# Use the 'mutate' function
+# You can use the '%>%' called a pipe to connect parts together.
+# In class answer
+precip <- precip %>%
+  # 1 inch = 22.54 mm
+  mutate(depth_mm = depth_in * 22.54) %>%
+  # 1000 m = 1 km
+  # 1000 m = 1 km
+  # 1,000,000 m2 = 1 km2
+  mutate(area_thos_m2 = area_thos_km2 * 10^3 * 10^3) %>%
+  # 1000 mm = 1 m
+  mutate(depth_m = depth_mm * 10^-3) %>%
+  # 1000 m = thos_m 
+  # 1000 m = thos_m
+  # 1000 * 1000 m2 =  thos_m2
+  mutate(area_m2 = area_thos_m2 * 10^6) %>%
+  mutate(vol_m3 = area_m2 * depth_m)
 
 # here is the answer
 precip <- precip %>%
