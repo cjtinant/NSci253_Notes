@@ -1,7 +1,7 @@
 ---
 title: "NSci233 Notes- Week 6"
 author: "Charles Jason Tinant"
-date: "2/22/2018"
+date: "2/27/2018"
 output:
   pdf_document: default
   html_document:
@@ -38,24 +38,26 @@ Precipitation is the single most important variable driving hydrologic processes
 - Read sections 2.7 - 2.8 of the text 
 - Article on [Cape Town, South Africa water crisis](https://www.vox.com/world/2018/2/9/16964416/cape-town-water-crisis-day-zero-south-africa) hotlinked and at https://www.vox.com/world/2018/2/9/16964416/cape-town-water-crisis-day-zero-south-africa  
 - **new reading**  
-[Data Visualization with ggplot2](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf) hotlinked and at https://www.vox.com/world/2018/2/9/16964416/cape-town-water-crisis-day-zero-south-africa  
-## Homework (note there are be another couple of new problems from this week)
+[Data Visualization with ggplot2](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf) hotlinked and at (https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf) 
+
+
+## Homework (note there are another couple of new problems from this week)
 You are welcome to turn in homework in Rmd, pdf, html or Word.  Upload the file into a folder with your name in Google Drive. 
 
 1. Vocabulary - Summarize the terms: weather, climate, frontal precipitation, convection, orographic, stratosphere, troposphere, jet stream
 
 2. Use the following link: [Koeppen Climate](http://koeppen-geiger.vu-wien.ac.at/pdf/KG_USA_UScounty.pdf) to download a map of Koeppen climates for the United States. What is the climate for Western South Dakota?  What is the climate for Eastern South Dakota.
 
-2. Use the following link: [Drought Monitor](http://droughtmonitor.unl.edu/) - What is the drought intensity for this week for the county you live in? If your county is in drought, then is the drought short-term or long-term?  What is the drought summary for the High Plains?  What is the the drought summary for the West?
+3. Use the following link: [Drought Monitor](http://droughtmonitor.unl.edu/) - What is the drought intensity for this week for the county you live in? If your county is in drought, then is the drought short-term or long-term?  What is the drought summary for the High Plains?  What is the the drought summary for the West?
 
-3. Calculate the effective depth in mm and volume of water in the last snowstorm in cubic meters for two watersheds.  Assume the snow has a 10% moisture content, 8 inches of snow fell over a 500 square mile watershed, and 6 inches of snow over a 300 square mile watershed.  Recall: 1 inch = 22.54 mm, 1 square mile = 2.59 square kilometers.  Feel free to use either R or another approach.
+4. Calculate the effective depth in mm and volume of water in the last snowstorm in cubic meters for two watersheds.  Assume the snow has a 10% moisture content, 8 inches of snow fell over a 500 square mile watershed, and 6 inches of snow over a 300 square mile watershed.  Recall: 1 inch = 22.54 mm, 1 square mile = 2.59 square kilometers.  Feel free to use either R or another approach.
 
-4. Look up the average monthly precipitation totals for the county you live in.  The Drought Monitor may be a helpful resource.  You can use a table to show the precipitation totals using the method discussed on the lower left part of page 2 of the R Markdown cheatsheet that you can download from https://www.rstudio.com/resources/cheatsheets/ 
+5. Look up the average monthly precipitation totals for the county you live in.  The Drought Monitor may be a helpful resource.  You can use a table to show the precipitation totals using the method discussed on the lower left part of page 2 of the R Markdown cheatsheet that you can download from https://www.rstudio.com/resources/cheatsheets/ 
 
-5. Pick three short-term and three long-term intensities for Table 2.5 and look up on a map the locations they are recorded in.  Based on the geographic location of these areas, what is the process causing the precipitation?
+6. Pick three short-term and three long-term intensities for Table 2.5 and look up on a map the locations they are recorded in.  Based on the geographic location of these areas, what is the process causing the precipitation?
 
-**new problems**
-6. Take a look at the graphs for the Cottonwood station below.  Identify: 1) the greatest 24-hour event, 2) the wettest year, 3) the dryest year, 4) the wettest decade, 5) the dryest decade, 6) is the region recieving more or less precipitation than 100 years ago.
+**new problem**
+7. Take a look at the graphs for the Cottonwood station below.  Identify: 1) the greatest 24-hour event, 2) the wettest year, 3) the dryest year, 4) the wettest decade, 5) the dryest decade, 6) is the region recieving more or less precipitation than 100 years ago.
 
 # Looking forward to next week
 Next week we will cover rainfall frequency distributions.
