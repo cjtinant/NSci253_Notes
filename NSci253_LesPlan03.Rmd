@@ -216,7 +216,7 @@ prcp_raw <- read_csv("1228041_cottonwood_sta.csv") %>%
   select(-(4:12)) %>%
   select(-(6)) 
 
-prcp <- prcp_raw %>%
+precip <- prcp_raw %>%
   # clean the names
   clean_names() %>%
   # make a column of years, months, and days
@@ -227,6 +227,9 @@ prcp <- prcp_raw %>%
   mutate(prcp_in = prcp/22.54) %>%
   # drop 2018 from the data
   filter(year != "2018")
+
+precip_event <- precip %>%
+  filter(prcp != 0)
 
 # this is to check on NA values
 prcp_na <- prcp %>%
@@ -271,10 +274,11 @@ The averaging period for rainfall depth and intensity can be important, dependin
 
 ```{r plot_24_hour_events}
 # make a plot of the daily precip values
-ggplot(prcp, aes(x = year, y = prcp_in)) +
+ggplot(precip_event, aes(x = year, y = prcp_in)) +
   geom_point() +
   geom_smooth() +
   theme_bw() +
+  scale_y_log10() +
   labs(title = "24-hour precipitation events for the last hundred years",
          subtitle = "COTTONWOOD Station, South Dakota; # USC00391972",
        x = "Year", y = "Depth in Inches")
