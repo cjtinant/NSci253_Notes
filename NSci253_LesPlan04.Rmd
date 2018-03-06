@@ -11,7 +11,6 @@ fontsize: 12pt
 ---
 
 ## Important Updates
-<<<<<<< HEAD
 * We will have a Friday make-up class from 1-4 for students who are snowed in or missed prior classes.  
 
 * The midterm will consist of an open book and a closed book section. I will be sending out the open book section on Friday.  Homework from Lesson Plans 1, 2, 3 is **due March 3rd** so that you are ready for the midterm.  Late homework will recieve a lower grade.
@@ -39,19 +38,6 @@ fontsize: 12pt
 
 * If you have not already, please download the following software to start the remote control tool TeamViewer Quicksupport: http://connect.teamviewer.com/v13   This way, I can take a look at your computer screen and resolve issues.  
 
-
-## Old Updates
-* The password for your OLC account in Gmail is experiencing technical issues that I hope to resolve as soon as possible. 
-
-* We had a make-up class on Friday Feb 23 from 1-4 PM to work with R-Studio and the rest of Lesson Plan 3 to cover the snow day on Feb 20.  *Note this is a second rechedule of the last supplementary / make-up class that had to be cancelled due to weather.*  
-
-* I resolved the R-Studio issues for 11/13 students (85%) as of the end of week 4.  **There were two issues that were causing read_csv() not to work:**  
-
-* a space somewhere in the file folder path caused by naming the folder something like "R hydro". The way to resolve this is to use an "_" or a "-" if you want a space in a name.  
-
-* the data that R was looking for using read_csv() was not in the same file as the lesson plan, which caused R to be confused.  The way to resolve this is to unzip the file, then copy all of the data you need into your working folder.  
->>>>>>> 5e8a8040dde6ece79b1beb511bc01f8f3ff51bfc
-
 ## Overview
 Precipitation is the single most important variable driving hydrologic processes and events, because it replenishes soil moisture, lakes and streams, and groundwater.  Precipitation is any form of solid or liquid water the falls from the atmosphere to the earth's surface.  Precipitation can be thought about in terms of events, as averages over a period of time, or as deviations from the normal or "adequate" amount.  In this section we are going to discuss the role of precipition in climate, what causes precipiation, precipitation events, and rainfall frequency.
 \newpage
@@ -61,7 +47,6 @@ Precipitation is the single most important variable driving hydrologic processes
 
 - *SLO2: Students are able to analyze components of the hydrologic with computer software* - Students will be generally able to read  data into R, and perform some analysis using packages.  Students will will be able to read arguments of a package from R Documentation.
 
-<<<<<<< HEAD
 ## Reading Assignments
 **new reading**  
 Tunkashila le miya yelo.  
@@ -81,18 +66,17 @@ Hihanni waste.
 - [Data Visualization with ggplot2](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf) hotlinked and at (https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf) 
 
 ## Homework 
-**No new homework this week.  We will have a homework problem on frequency distributions after Spring Break.**  The homework listed below was assigned last week.  You are welcome to turn in homework in Rmd, pdf, html or Word.  Upload the file into a folder with your name in Google Drive. 
-=======
+**No new homework this week.  We will have a homework problem on frequency distributions after Spring Break.**  
+The homework listed below was assigned last week.  You are welcome to turn in homework in Rmd, pdf, html or Word.  Upload the file into a folder with your name in Google Drive. 
+
 ## Reading Assignment
 - Read sections 2.7 - 2.8 of the text 
 - Article on [Cape Town, South Africa water crisis](https://www.vox.com/world/2018/2/9/16964416/cape-town-water-crisis-day-zero-south-africa) hotlinked and at https://www.vox.com/world/2018/2/9/16964416/cape-town-water-crisis-day-zero-south-africa  
 
-**new reading**  
 [Data Visualization with ggplot2](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf) hotlinked and at (https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf) 
 
 ## Homework (note there are another couple of new problems from this week)
 You are welcome to turn in homework in Rmd, pdf, html or Word.  Upload the file into a folder with your name in Google Drive. 
->>>>>>> 5e8a8040dde6ece79b1beb511bc01f8f3ff51bfc
 
 1. Vocabulary - Summarize the terms: weather, climate, frontal precipitation, convection, orographic, stratosphere, troposphere, jet stream
 
@@ -104,32 +88,22 @@ You are welcome to turn in homework in Rmd, pdf, html or Word.  Upload the file 
 
 5. Look up the average monthly precipitation totals for the county you live in.  The Drought Monitor may be a helpful resource.  You can use a table to show the precipitation totals using the method discussed on the lower left part of page 2 of the R Markdown cheatsheet that you can download from https://www.rstudio.com/resources/cheatsheets/ 
 
-6. Pick three short-term and three long-term intensities for Table 2.5 and look up on a map the locations they are recorded in.  Based on the geographic location of these areas, what is the process causing the precipitation?
+6. Pick three short-term and three long-term intensities for Table 2.5 and look up on a map the locations they are recorded in.  Based on the geographic location of these areas, what is the process causing the precipitation?   
 
-<<<<<<< HEAD
-7. Take a look at the graphs for the Cottonwood station below.  Identify: 1) the greatest 24-hour event, 2) the wettest year, 3) the dryest year, 4) the wettest decade, 5) the dryest decade, 6) whether the region is recieving more or less precipitation than 100 years ago.
+7. Take a look at the graphs for the Cottonwood station below.  Identify: 1) the greatest 24-hour event, 2) the wettest year, 3) the dryest year, 4) the wettest decade, 5) the dryest decade, 6) whether the region is recieving more or less precipitation than 100 years ago.  
 
 ## Class Timeline - March 6th
 8:30 - Study Hall  
-9:00 - Questions on homework / technical issues
-9:30 - Averaging precipitation over space and time
-9:50 - Break (please be back in 10 minutes)   
-10:00 - Historic time trends
-10:20 - Frequency Distributions
-10:50 - Break (please be back in 10 minutes)   
-11:00 - Self-directed work
-11:40 - Summary discussion   
-3:50 - Feedback to instructor  
-
-## Looking forward to next week
-Spring break and the take-home portion of the midterm exam.  
-=======
-**new problem**
-7. Take a look at the graphs for the Cottonwood station below.  Identify: 1) the greatest 24-hour event, 2) the wettest year, 3) the dryest year, 4) the wettest decade, 5) the dryest decade, 6) is the region recieving more or less precipitation than 100 years ago.
-
-# Looking forward to next week
-Next week we will cover rainfall frequency distributions.
->>>>>>> 5e8a8040dde6ece79b1beb511bc01f8f3ff51bfc
+9:00 - Questions on homework / technical issues  
+9:30 - Averaging precipitation over space and time  
+9:50 - Break (please be back in 10 minutes)    
+10:00 - Historic time trends  
+10:20 - Frequency Distributions  
+10:50 - Break (please be back in 10 minutes)    
+11:00 - Self-directed work  
+11:40 - Summary discussion    
+11:50 - Feedback to instructor 
+12:00 - IT Questions  
 \newpage
 
 ```{r setup, include=FALSE}
