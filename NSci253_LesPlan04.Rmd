@@ -5,11 +5,8 @@ date: "2/27/2018"
 output:
   html_document:
     df_print: paged
-<<<<<<< HEAD
+  pdf_document: default
 subtitle: Lesson Plan 4 - Precipitation Week 4 of 4
-=======
-subtitle: Lesson Plan 3 - Precipitation Week 3 of 4
->>>>>>> 5e8a8040dde6ece79b1beb511bc01f8f3ff51bfc
 fontsize: 12pt
 ---
 
@@ -33,7 +30,7 @@ fontsize: 12pt
 1. a space somewhere in the file folder path caused by naming the folder something like "R hydro". The way to resolve this is to use an "_" or a "-" if you want a space in a name.  
 
 2. the data that R was looking for using read_csv() was not in the same file as the lesson plan, which caused R to be confused.  The way to resolve this is to unzip the file, then copy all of the data you need into your working folder.  
-=======
+
 * Homework from Lesson Plans 1, 2, 3 is **due THIS FRIDAY**, March 3rd so that you are ready for the midterm.
 
 * We are going to add another 30-minutes to class to give addional technical help (e.g. 9:00 - 12:30)
@@ -299,7 +296,13 @@ precip_event <- precip %>%
   filter(prcp != 0)
 
 # this is to check on NA values
-<<<<<<< HEAD
+prcp_na <- precip %>%
+  filter(is.na(prcp))
+
+# this is to check on the dryest year
+prcp_test <- precip %>%
+  filter(year == "1961")
+
 prcp_na <- precip %>%
   filter(is.na(prcp))
 
@@ -309,18 +312,7 @@ prcp_test <- precip %>%
 
 # make an annual precipitation 
 prcp_ann <- precip %>%
-=======
-prcp_na <- prcp %>%
-  filter(is.na(prcp))
-
-# this is to check on the dryest year
-prcp_test <- prcp %>%
-  filter(year == "1961")
-
-# make an annual precipitation 
-prcp_ann <- prcp %>%
->>>>>>> 5e8a8040dde6ece79b1beb511bc01f8f3ff51bfc
-  # make a group of the years so that we can see how much prcp per year
+# make a group of the years so that we can see how much prcp per year
   group_by(year) %>%
   summarize(prcp = sum(prcp, na.rm = TRUE),
             prcp_in = sum(prcp_in, na.rm = TRUE)) %>%
@@ -358,12 +350,7 @@ ggplot(precip_event, aes(x = year, y = prcp_in)) +
   geom_smooth() +
   theme_bw() +
   scale_y_log10() +
-<<<<<<< HEAD
-  labs(title = "24-hour precipitation events over the last hundred years",
-=======
-  labs(title = "24-hour precipitation events for the last hundred years",
->>>>>>> 5e8a8040dde6ece79b1beb511bc01f8f3ff51bfc
-         subtitle = "COTTONWOOD Station, South Dakota; # USC00391972",
+  labs(title = "24-hour precipitation events over the last hundred years", subtitle = "COTTONWOOD Station, South Dakota; # USC00391972",
        x = "Year", y = "Depth in Inches")
 ```
 
