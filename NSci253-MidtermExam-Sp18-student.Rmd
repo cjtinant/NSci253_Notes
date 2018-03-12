@@ -1,0 +1,167 @@
+---
+title: "Midterm Exam"
+author: "Charles Jason Tinant"
+date: "3/12/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Orientation  
+Hydrology is the study or knowledge of water.  Understanding our societal need of water is important because at every point in time there are places in the world that experience excesses or deficits of water that have an adverse impact on society and ecosystems.  Two growing areas of concern are an increasing human population that is stressing water resources, and global warming that is having an increasing impact on global food and water supplies. 
+
+The midterm exam will evaluate your understanding of the student learning outcomes (SLOs) listed below by a closed book portion during class following spring break and an open book/note portion.
+
+##NSci 253 Hydrology - Student Learning Outcomes (SLOs)
+**SLO1: Students will demonstrate proficiency in describing and relating the components of the hydrologic cycle: precipitation, infiltration, runoff, and evapotranspiration**
+- Students will be able to generally describe the hydrologic cycle: precipitation, infiltration, evapotranspiration, runoff, and groundwater (in English and Lakota);
+- Students will be able to relate the hydrologic cycle, water resources and society using vocabulary: sustainability, water distribution, water use, water consumption, hydrologic storages: atmosphere, soil vadose zone, aquifers, lakes, streams, ocean and ice, hydrologic process: evaporation, precipitation, transpiration, infiltration, runoff, percolation, and stream flow, weather, climate, frontal precipitation, convection, orographic, stratosphere, troposphere, jet stream.
+- Students will be able to relate the hydrologic cycle, water resources and society to the local climate.
+- Students will be able perform basic hydrologic data analysis by hand and demonstrate an understanding of hydrologic graphs.
+
+**SLO2: Students are able to analyze components of the hydrologic with computer software**
+- Students demonstrate basic proficiency in the R statistical programming language by reading 'Tidyverse' code, reading data into R, and joining data tables.
+- Students demonstrate basic manipulation tasks such as finding summaries, performing unit conversions, calculating an effective precipitation depth, precipitation volume.
+
+**Please complete the two problems and turn them in before class next Tuesday by email as a Rmd file.**
+
+## Problem 1: Summarizing annual precipitation in west-central South Dakota
+- You should use the lesson plans to load up the necessary packages, load in and transform the data from daily to annual precipitation totals to answer sections 1a to 1d.
+a. (7-pts) Use the Cottonwood precipitation data "1228041_cottonwood_sta.csv" to find the annual precipitation mean, median, max, min, 25%, and 75%. 
+b. (3-pts) About how much precipitation should you expect for a given year?
+c. (2-pts) Why is the mean different from the median annual precipitation at Cottonwood?
+d. (2-pts) Was 1997 a wet year or a dry year?
+- Use the daily precipitation totals to answer the following questions::
+e. (2-pts)  what months had the largest rainfall events?
+f. (3-pts) What kind of storms most likely produced the largest rainfall events?
+
+## Problem 2: Precipitation depth, precipitation volume, and effective precipitation
+Acre-ft (the depth of water measured in feet on an acre of land) is the official water use measurement for the United States.  Evaporation in this part of the world is about 60% of the total depth of a given storm.
+
+The five largest 24-hour storm depths in the Cottonwood period of record are (in inches) 5.84, 4.81, 4.00, 3.71, and 3.61.  Use these storm depths over a 100 square mile watershed to calculate the following:
+a. (3-pts) Storm depths in feet.
+b. (3-pts) Watershed area in acres.
+c. (3-pts) Total storm volume in acre-feet.
+d. (3-pts) Effective volume of the storm in acre-feet.
+e. (4-pts) Evaporation volume in cubic feet.
+f. (4-pts) If the storms fell as snow of 10% moisture content, what would be the snow depths in inches?
+\newpage 
+
+1. (10-pts) Draw a diagram describing the hydrologic cycle: precipitation, infiltration, evapotranspiration, runoff, stream flow and groundwater. **Extra Credit: one point for each additional word in Lakota**
+
+2. (10-pts) Use the diagram above to draw a second diagram describing each of the hydrologic storages, and hydrologic processes.  Label the hydrologic storages with a box and the hydrologic processes with an arrow.
+
+3. (5-pts) Describe the difference between weather and climate.
+
+4. (10-pts) Describe and/or draw a diagram of how precipitation forms using the terms: frontal precipitation, convective precipitation, orographic precipitation, stratosphere, troposphere, condensation, nucleation.
+
+5. (8-pts) Describe the climate of and seasonal moisture sources for western South Dakota. How does moisture move from its source to the region.
+
+6. (10-pts) What is the major water resource for irrigation use in western South Dakota?  About how long does it take for a drop of water as precipitation to enter storage?  What are some concerns you might have about the long-term sustainability of this water resource?
+
+7. (7-pts) What is the total precipitation volume in meters for a storm of 1.5 cm falling over a 200 square kilometer watershed?
+
+
+```{r library}
+library("tidyverse") # load the tidyverse package 
+library("lubridate") # helps with dates
+library("here")      # helps with working directory
+library("janitor")   # helps to clean dirty data
+here::here()          # this checks where R thinks the working directory is...
+```
+
+
+```{r cottonwood_timeseries}
+# I downloaded station data for Cottonwood station, SD from 
+# NOAA's National Centers for Environmental Information (NCEI)
+# https://www.ncdc.noaa.gov/cdo-web/
+# the column descriptions are below.  The depths are in metric (mm)
+
+prcp_raw <- read_csv("1228041_cottonwood_sta.csv") %>%
+  # drop the columns we dont need
+  select(-(4:12)) %>%
+  select(-(6)) 
+
+precip <- prcp_raw %>%
+  # clean the names
+  clean_names() %>%
+  # make a column of years, months, and days
+  mutate(year = year(date)) %>%
+  mutate(month = month(date)) %>%  
+  mutate(day = day(date)) %>%
+  # change the mm to inches
+  mutate(prcp_in = prcp/22.54) %>%
+  # drop 2018 from the data
+  filter(year != "2018")
+
+precip_event <- precip %>%
+  filter(prcp != 0)
+
+# this is to check on NA values
+prcp_na <- precip %>%
+  filter(is.na(prcp))
+
+# this is to check on the dryest year
+prcp_test <- precip %>%
+  filter(year == "1961")
+
+# make an annual precipitation 
+prcp_ann <- precip %>%
+# make a group of the years so that we can see how much prcp per year
+  group_by(year) %>%
+  summarize(prcp = sum(prcp, na.rm = TRUE),
+            prcp_in = sum(prcp_in, na.rm = TRUE)) %>%
+  arrange(prcp) %>%
+  # add back in the month and days (helps with the stuff below)
+  mutate(month = 1) %>%
+  mutate(day = 1) %>%
+  mutate(date = ymd(paste(year, month, day, sep="-"))) %>%
+  select(date, year, month, day, prcp, prcp_in)
+
+# Here is what the columns from the raw data mean:
+#EVAP - Evaporation of water from evaporation pan
+#DAPR - Number of days included in the multiday precipitation total (MDPR)
+#DAEV - Number of days included in the multiday evaporation total (MDEV)
+#SNOW - Snowfall
+#PRCP - Precipitation
+#MNPN - Daily minimum temperature of water in an evaporation pan
+#MDEV - Multiday evaporation total (use with DAEV)
+#MXPN - Daily maximum temperature of water in an evaporation pan
+#MDPR - Multiday precipitation total (use with DAPR and DWPR, if available)
+#MDSF - Multiday snowfall total
+#SNWD - Snow depth
+#DASF - Number of days included in the multiday snow fall total (MDSF) 
+
+summary(prcp_ann$prcp_in)
+```
+
+```{r}
+ggplot(prcp_ann, aes(year, prcp_in)) +
+  geom_point()
+ggplot(prcp_ann, aes(x = year, y = prcp_in)) +
+  geom_bar(stat="identity") +
+  theme_bw() +
+  labs(title = "24-hour precipitation events over the last hundred years", subtitle = "COTTONWOOD Station, South Dakota; # USC00391972",
+       x = "Year", y = "Depth in Inches")
+```
+
+```{r}
+max_storms <- precip_event %>%
+  arrange(desc(prcp_in)) %>%
+  slice(1:5) %>%
+  mutate(wshedArea_sqmi = 100) %>%
+  mutate(wshedArea_ac = wshedArea_sqmi * 640) %>%
+  mutate(prcp_ft = prcp_in/12) %>%
+  mutate(acre_ft = wshedArea_ac * prcp_ft) %>%
+  mutate(eff_vol_acft = 0.4 * acre_ft) %>%
+  mutate(evap_cuft = 0.6 * acre_ft * 43560) %>%
+  mutate(depth_as_snow = prcp_in *10/12)
+  
+```
+
+```{r}
+1.5 * 10^-2 * 200 *10^3 *10^3 
+```
+

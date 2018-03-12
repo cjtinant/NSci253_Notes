@@ -48,17 +48,22 @@ Precipitation is the single most important variable driving hydrologic processes
 - *SLO2: Students are able to analyze components of the hydrologic with computer software* - Students will be generally able to read  data into R, and perform some analysis using packages.  Students will will be able to read arguments of a package from R Documentation.
 
 ## Reading Assignments
-**new reading**  
-Tunkashila le miya yelo.  
-Le anpetu ki wihinapu kici.  Pilamaya.  
+
+Scan Chapter 1 of **Exploratory Data Analysis** https://leanpub.com/exdata 
+
+**Vocabulary**  
+Tunkashila le miya yelo.
+*Grandfather. This [miya]*
+Le anpetu khi wihinapu kichi.  Pilamaya. 
+*This day, the sun is rising.  I am grateful.*
 Kici oniya na wiconi tanmahel na icin.  
+*I have breath and life because of you*
 Taku iyaha ya kaga ki.  Le anpetu ki.  
 Mita kola wica ya waste na. Tunkashila.  
 Woceki ya mitawa ki.  
 Nahon wo, na wocekiya mitawa ohota yo,
 Hihanni waste.  
 *Bryant High Horse (author - transcriber)* 
-
 **Otakuye** - everything that moves  
 
 - Read sections 2.7 - 2.8 of the text 
@@ -327,7 +332,7 @@ Climate tends to have distinct wetter and drier periods (Figure 2.7), with perio
 
 ```{r create_and_plot_annual_events}
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# add the tidyquant package to create a l
+# add the tidyquant package to create a running mean of the years
 # The package 'tidyquant' is for integrating 
 # quantitative financial analysis tools with the tidyverse.  
 # Specifically, we want to create a rolling mean like in figure 2.7.  

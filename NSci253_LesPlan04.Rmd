@@ -47,7 +47,6 @@ Precipitation is the single most important variable driving hydrologic processes
 
 - *SLO2: Students are able to analyze components of the hydrologic with computer software* - Students will be generally able to read  data into R, and perform some analysis using packages.  Students will will be able to read arguments of a package from R Documentation.
 
-## Reading Assignments
 **new reading**  
 Tunkashila le miya yelo.  
 Le anpetu ki wihinapu kici.  Pilamaya.  
