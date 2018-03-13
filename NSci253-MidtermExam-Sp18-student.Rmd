@@ -1,5 +1,5 @@
 ---
-title: "Midterm Exam"
+title: "NSci 253 Hydrology Midterm Exam - Sp18"
 author: "Charles Jason Tinant"
 date: "3/12/2018"
 output:
@@ -16,7 +16,7 @@ Hydrology is the study or knowledge of water.  Understanding our societal need o
 
 The midterm exam will evaluate your understanding of the student learning outcomes (SLOs) listed below by an open open book/note exam, followed by closed book portion during the class following spring break.
 
-##NSci 253 Hydrology - Student Learning Outcomes (SLOs)
+##Student Learning Outcomes (SLOs)
 **SLO1: Students will demonstrate proficiency in describing and relating the components of the hydrologic cycle: precipitation, infiltration, runoff, and evapotranspiration**  
 
 - Students will be able to generally describe the hydrologic cycle: precipitation, infiltration, evapotranspiration, runoff, and groundwater (in English and Lakota);  
