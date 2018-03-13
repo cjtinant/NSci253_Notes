@@ -3,7 +3,6 @@ title: "NSci 253 Hydrology Midterm Exam - Sp18"
 author: "Charles Jason Tinant"
 date: "3/12/2018"
 output:
-  pdf_document: default
   html_document: default
 ---
 
