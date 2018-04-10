@@ -1,0 +1,258 @@
+---
+title: "NSci233 Notes- Week 6"
+author: "Charles Jason Tinant"
+date: "2/27/2018"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+subtitle: Lesson Plan 4 - Precipitation Week 4 of 4 completed
+fontsize: 12pt
+---
+
+## Important Updates
+* The midterm will consists of an open book and a closed book section. All exams I receive after 5 PM today are overdue and will receive a lower grade.  I'm not sure what to do about the open book exams that were not turned in...
+
+* Homework from Lesson Plans 1, 2, 3 is **due March 3rd** so that you are ready for the midterm.  Late homework will receive a lower grade.
+
+* We are adding another 30-minutes to class to give additional technical help (e.g. 9:00 - 12:30)
+
+* The most recent versions of the lesson plans can be downloaded from https://github.com/cjtinant/NSci253_Notes 
+
+## Overview
+*Infiltration* is the passage of water through the surface of the soil via pores or small openings.  Infiltrated water is necessary for vegetative growth, recharges ground water, and reduces surface runoff.  Infiltration is also complex and difficult to quantify.  Approaches to quantifying infiltration include theoretical equations based on the physics of soil water movement, empirical equations with no physical significance, and in situ measurement methods.  In recent years computer technology has made the application of complex equations that describe infiltration processes more feasible.
+\newpage
+
+##Student Learning Outcomes (SLOs) &  Lesson Goals:  
+- *SLO1: Students will demonstrate proficiency in the components of the hydrologic cycle: precipitation, infiltration, runoff, and evapotranspiration* - Students will be able to generally describe what causes precipitation, precipitation events, and rainfall frequency. 
+
+- *SLO2: Students are able to analyze components of the hydrologic with computer software* - Students will be generally able to read  data into R, and perform some analysis using packages.  Students will will be able to read arguments of a package from R Documentation.
+
+## Reading Assignments
+
+Chapter 2: Read sections 3.1 - 3.4.  Scan sections 3.5 - 3.8
+
+**Vocabulary**  
+Tunkashila le miya yelo.
+*Grandfather. This [miya]*
+Le anpetu khi wihinapu kichi.  Pilamaya. 
+*This day, the sun is rising.  I am grateful.*
+Kici oniya na wiconi tanmahel na icin.  
+*I have breath and life because of you*
+Taku iyaha ya kaga ki.  Le anpetu ki.  
+Mita kola wica ya waste na. Tunkashila.  
+Woceki ya mitawa ki.  
+Nahon wo, na wocekiya mitawa ohota yo,
+Hihanni waste.  
+*Bryant High Horse (author - transcriber)* 
+**Otakuye** - everything that moves  
+
+## Homework 
+*working on it*
+1. Write the definition of the following terms: infiltration, soil water, saturated, hygroscopic soil water,
+
+## Class Timeline - March 27th
+8:30 - Study Hall  
+9:00 - Questions on homework / technical issues  
+9:30 - Averaging precipitation over space and time  
+9:50 - Break (please be back in 10 minutes)    
+10:00 - Historic time trends  
+10:20 - Frequency Distributions  
+10:50 - Break (please be back in 10 minutes)    
+11:00 - Self-directed work  
+11:40 - Summary discussion    
+11:50 - Feedback to instructor 
+12:00 - IT Questions  
+\newpage
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+## Lecture Notes with R-code
+```{r library}
+# If you need to you should 'install.packages("here")'
+library("tidyverse") # load the tidyverse package 
+library("lubridate")
+library("here")
+library("janitor")
+here::here() # this checks where R thinks the working directory is...
+```
+
+### Soil Water Relationships
+* Soil profiles consist of heterogeneous mixtures of solid, liquid, and gaseous materials, and billions of microorganisms.  Solid materials include particles of different sizes, shapes, and mineral composition.    
+
+* Soil particles consist primarily of disintegrated and decomposed rock fragments.  These fragments are not created by simply crushing the rock.  Instead, there are biologically-mediated oxidation, carbonization, and hydration processes occurring to make soil.  
+
+* A first approach in understanding infiltration and soil water processes is *physical soil classification* based on the size of the soil particles.  We use clay, silt, and sand in soils classification.  Figures 3.1 and 3.2 show different soils classification approaches.  The size of the particles is important because the particles have interstial open spaces called *voids* or *pores* that hold water.  And because clay particles can hold onto water through *capillary action*.
+
+* Air or water fills the voids.  If the voids are full, then the soil is *saturated*.  Saturated soils hold more water than can be held under gravity.  The extra water *percolates* drains downward to recharge groundwater and to flow laterally to recharge streams *interflow*.  Once all of the water that can be held by the soil percolates to groundwater then the soil is at *field capacity*.  We can think about the complex relationship of soil voids using math.
+
+$$V_t = V_a + V_w + V_s$$
+where $V_t$ is the total volume of voids, $V_a$ is the volume of air, $V_w$ is the volume of water, and $V_s$ is the volume of solids.  The volume of voids, $V_v$ can be found in the following way
+
+$$V_v = V_a + V_w$$
+
+Substuting the two equations above gives a mathematical description of porosity, $n$ by
+
+$$ n = \frac{V_v}{V_t} = 1 - \frac{V_s}{V_t}$$
+
+The amount of soil water content in a soil can be found by either volume or mass.  *note that accurately measuring mass in the lab is pretty easy, relative to accurately measuring volume*.  Soil water content is expressed as $\Theta_v$, the volume of water in a soil sample divided by the total volume of the sample.
+
+$$\Theta_v = \frac{V_w}{V_t} = S*n$$
+Soil moisture content is the amount of moisture that fills soil pores.  The percentage of pores that are filled with water is called the *degree of saturation, S*.  The relationship between $S$, $n$, and  $\Theta_v$ is shown above.
+
+### Example 4.1
+What is the maximum depth of water that can be stored in the top three feet of a soil profile with a porosity of 0.5.  Also, determine the volumetric soil water content if the degree of saturation is 60%.  
+
+```{r Example_4.1}
+# What is the maximum depth of water that can be stored in the top three
+# feet of a soil profile with a porosity of 0.5.  Also, determine the 
+# volumetric soil water content if the degree of saturation is 60%.
+
+# For max depth of stored water use vol_void = porosity * vol_tot
+
+# 1. find vol_tot in cubic inches
+depth_ft      <- 3
+depth_in      <- depth_ft * 12      # 12 in = 1 ft 
+area_sq_in    <- 1
+vol_tot_cu_in <- depth_in * area_sq_in 
+
+# 2. find the maximum volume of water that can be stored 
+porosity       <- 0.5
+vol_void_cu_in <- porosity * vol_tot_cu_in
+
+# 3. find the maximum depth of water that can be stored 
+vol_void_in    <- vol_void_cu_in/area_sq_in 
+
+# 4. find the amount of water in the soil at 60% saturation
+
+# for water content at 60% saturation use Theta_v = perc_sat * porosity
+perc_sat       <- 0.6
+Theta_v        <- perc_sat * porosity
+```
+
+The depth of water is `r format(print(vol_void_in))` inches and the volumetric soil water content at 60% saturation is `r format(print(Theta_v))` inches per inch (or cubic inches per cubic inch).  
+
+### Gravimetric soil water content
+The total mass of a soil profile is given below.  
+$$m_t = m_a + m_w + m_s$$
+
+The soil water content can also be determined as a function of mass.  In this case, it is called the *gravimetric soil water content*.  We assume that the mass of air is negligible.  The soil water content is the ratio of water mass to dry soil mass.
+
+$$\Theta_g = \frac{m_w}{m_s}$$
+
+The following example is typical for a soil lab technique.  
+
+### Example 4.2
+A sample of soil is placed in a weighing container with a mass of 25 grams.  The weighing container plus soil is 140 grams.  The sample is then put into a drying oven for 24-hours at 104 centigrade.  The sample plus tin is cooled and reweighed.  The final mass is 120 grams.  What is the water content by mass.
+
+```{r example 4.2}
+rm(list=ls()) # remove all of the list of variables
+
+# given
+mass_tin           <-  25 # grams
+mass_tin_soil_water <- 140 # grams
+mass_tin_soil  <- 120 # grams
+
+# Need to find water content by mass: mass_w / mass_total
+
+# 1. need to subtract off the mass of the tin.
+mass_soil_water = mass_tin_soil_water - mass_tin # grams
+mass_soil = mass_tin_soil - mass_tin # grams
+
+# 2. Find the mass of the water
+mass_water = mass_soil_water - mass_soil # grams
+
+# 3. find water content by mass
+wat_cont_mass = mass_water / mass_soil
+perc_sat_mass = 100 * wat_cont_mass
+
+```
+
+The water content is `r format(print(perc_sat_mass))` (grams per gram).  
+
+### Soil density
+The behavior of soil depends on the *bulk density* of the soill profile $\rho_b$, which is the mass of the soil per unit volume.  It is related to other soil properties.  
+
+Bulk density:
+$$\rho_b = \frac{m_t}{V_t}$$
+
+Dry bulk density:
+$$\rho_{dry} = \frac{m_s}{V_t}$$
+
+The dry bulk density is related to the soil particle density, $\rho_p$ and porosity, $n$.
+$$\rho_{dry} = {\rho_p(1-n)}$$
+
+The soil particle density, $\rho_p$ is the mass of the dry soil divided by the soil volume $\frac{m_s}{V_s}$.   Soil particle density depends on the underlying geology, but soil particles are often assumed to weigh 2.6 - 2.75 grams per cubic cm (160 - 175 lb/cu.ft).
+
+This can be rearranged to find porosity.
+$$1-\frac{\rho_{dry}}{\rho_p} = n$$
+
+The ratio of density of soil particles to the density of water is called *specific gravity*, where water is assumed to be 1.0 grams per cubic cm (62.4 lb/cu.ft).
+$$G_s =\frac{\rho_p}{\rho_w}$$
+
+The example below relates mass and volume through density.
+
+###Example 3.3 
+The dry bulk density of a soil sample is 84.24 lb/cu.ft, and the density of particles was measured to be 168.48 lb/cu.ft.  Find the porosity of the soil profile and the specific gravity of the soil particles.  Also find the bulk density of a saturated soil sample.
+
+```{r example 3.3}
+rm(list=ls()) # remove all of the list of variables
+
+dens_dry  <-  84.24  # lb/cu.ft
+dens_part <- 168.48  # lb/cu.ft
+
+# 1. SI units are much easier to work with, so change to SI using density of water
+# Density of water is: 1.0 g/cc = 62.4 lb/cu.ft
+dens_water_Imp <- 62.4  # lb/cu.ft for the Imperial Units density of water
+
+dens_dry  <-  dens_dry / dens_water_Imp  # changes it to g/cc
+dens_part <- dens_part / dens_water_Imp  # changes it to g/cc
+dens_water <- dens_water_Imp / dens_water_Imp # changes it to g/cc (a check)
+rm(dens_water_Imp) # removes the unneeded variable 
+
+# 2. Use the equation for porosity above
+porosity <- 1 - (dens_dry/dens_part)
+
+# 3. Specific gravity of the soil is now pretty easy because we are in SI units.
+SpGrav_part <- dens_part / dens_water # unitless or  g/cc per g/cc
+
+# note that pure quartz sand is 2.65 and feldspar is 2.6, so this soil 
+# is most likely derived from a granite.  In contrast, an iron oxide has 
+# a specific gravity of about 5.0.
+
+# 4. Use the equation above for bulk density at saturation.
+# 4a. Note that density is mass per cubic centimeter, 
+# so find mass of water in 1 cubic centimeter of pores
+ mass_water <- porosity * dens_water
+ 
+# 4b. find the mass of 1 cubic centimeter of soil
+ mass_dry <- dens_dry * 1 # g/cc * 1 cc
+ 
+# 4c. consider the total mass is mass of dry sample + mass of water in pores.
+mass_sat_soil <- mass_dry + mass_water 
+dens_sat_soil <- mass_sat_soil / 1 # grams per cc
+
+```
+
+The water content is `r format(print(perc_sat_mass))` (grams per gram).  
+
+The porosity of the soil profile is `r format(print(porosity))` (volume per volume).  The specific gravity of the soil particles is `r format(print(SpGrav_part))` grams per cubic centimeter.  The bulk density of a saturated soil sample is `r format(print(dens_sat_soil))`.
+
+### Example 3.4 - Field capacity
+Determine the amount of water needed to increase soil water content in the root zone of a clay loam soil from a critical value of 50% of field capacity to field capacity.  The critical value is the point at which wilting occurs, the wilting point or WP.  Figure 3.9 shows the water holding capacity for different kinds of soils.  The figure shows that the wilting point for clay loam is 2 inches per foot of soil and the field capacity is 4 inches per foot of soil.
+
+```{r example 3.4}
+rm(list=ls()) # remove all of the list of variables
+
+dens_dry  <-  84.24  # lb/cu.ft
+dens_part <- 168.48  # lb/cu.ft
+
+# 1. SI units are much easier to work with, so change to SI using density of water
+# Density of water is: 1.0 g/cc = 62.4 lb/cu.ft
+```
+
+
+
+
