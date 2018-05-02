@@ -1,0 +1,46 @@
+---
+title: "NSci233 Lesson Plan Evapotranspiration"
+author: "Charles Jason Tinant"
+date: "5/01/2018"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+subtitle: Weeks 13 to 15
+fontsize: 12pt
+---
+
+## Overview
+Evapotranspiration (ET) is the process that returns water to the atmosphere and therefore completes the hydrologic cycle. ET can be broken up into potential evapotranspiration (PET) which is the evaporation and transpiration demand on a system and actual evapotranspiration (AET) which is the actual amount of ET taking place.  ET is both difficult to measure and is important for predicting stocking rates, water needed for growing crops, and stream flow.  We discuss the science of ET and some basic modelling approaches. Understanding ET models is a important component in Reservation drought management plan development.
+
+##Student Learning Outcomes (SLOs) &  Lesson Goals:  
+- *SLO1: Students will demonstrate proficiency in the components of the hydrologic cycle: precipitation, infiltration, runoff, and evapotranspiration* - Students will be able to generally describe physical characteristics of soils that lead to runoff and infiltration.
+
+- *SLO2: Students are able to analyze components of the hydrologic with computer software* - Students will be generally able to read  data into R, and perform basic analysis.  Students will will be able to read arguments of a package from R Documentation.
+
+- *SLO3: Student teams are able solve a hydrology problem of local interest* - Students will be able to discuss water rights from a treaty perspective.
+
+
+
+
+## Reading Assignment
+Chapter 4: Read sections 4.1 - 4.5.  Read 4.6 sections 4.6.1 - 4.6.2, 4.6.5.  Read 4.7 - 4.9.
+
+## Homework Assignment
+*Please work together during May 4, May 11, and May 18 class & recitation sessions.
+\newpage
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+## In-class Notes with R-code
+```{r library}
+# If you need to you should 'install.packages("here")'
+# library("tidyverse") # load the tidyverse package 
+# library("lubridate")
+# library("janitor")
+library("here")
+here::here() # this checks where R thinks the working directory is...
+```
+
