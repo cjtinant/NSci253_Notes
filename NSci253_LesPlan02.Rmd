@@ -1,6 +1,6 @@
 ---
-title: "NSci233 Notes - Week 3"
-subtitle: "Updated 2/19/2018"
+title: "NSci233 Notes - Weeks 3 - 5 "
+subtitle: "Water Resources - Updated 5/02/2018"
 author: "Charles Jason Tinant"
 date: "2/06/2018"
 fontsize: 12pt
@@ -39,13 +39,13 @@ This week we will take a first look at the hydrologic cycle, water resources and
 ## Homework
 You are welcome to turn in a file in Rmd, pdf, html or Word.  Upload the file into a folder with your name in Google Drive. 
 
-1. Vocabulary - Summarize the terms: precipitation, infiltration, evapotranspiration, runoff, and groundwater as given on pages 8 & 9 of your text.  
+* 1. Vocabulary - Summarize the terms: precipitation, infiltration, evapotranspiration, runoff, and groundwater as given on pages 8 & 9 of your text.  
 
-2. Unit conversion - What are the global amounts of water withdrawn in cubic kilometers per year?   
+* 2. Unit conversion - What are the global amounts of water withdrawn in cubic kilometers per year?   
 
-3. Water Distribution - Is ground water a renewable resource? Use Table 1.8 to identify how long it takes for a drop of water removed from an aquifer to be replaced.
+* 3. Water Distribution - Is ground water a renewable resource? Use Table 1.8 to identify how long it takes for a drop of water removed from an aquifer to be replaced.
 
-4. Sustainability - Much of Africa is a semi-arid climate, like Western SD.  Add a mutate statement to 'water_balance' below to calculate the percentage of precipitation that is evaporated. Notice also there is little ground water, relative to other regions.
+* 4. Sustainability - Much of Africa is a semi-arid climate, like Western SD.  Add a mutate statement to 'water_balance' below to calculate the percentage of precipitation that is evaporated. Notice also there is little ground water, relative to other regions.
 - How does this help to explain why there is a low ratio of water being withdrawn to precipitation?   
 - How does a changing climate and an increasing population make people this region more vulnurable to drought?  
 - Discuss parallels between Africa and Reservations in the Midwest and Southwest in terms of water resources.  
