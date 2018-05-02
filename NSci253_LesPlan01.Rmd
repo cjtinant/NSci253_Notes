@@ -1,6 +1,6 @@
 ---
-title: "NSci253 - Lesson Plan 1"
-subtitle: "updated on 2/19/2018"
+title: "NSci253 - Lesson Plan 1 - Week 1 & 2"
+subtitle: "updated on 5/02/2018"
 author: "Charles Jason Tinant"
 date: "1/22/2018"
 output:
@@ -26,24 +26,25 @@ This week we are going to use global population data to learn some of the basic 
 ### Weekly Readings
 * Read syllabus
 * Read Chapter 1; pages 1-12, 16, 20, 26-29.
-* Read the r4beginners_v3.pdf in the Google Drive.  You can also download the article from https://www.computerworld.com/article/2497143/business-intelligence/business-intelligence-beginner-s-guide-to-r-introduction.html 
+* Read the [r4beginners_v3.pdf](https://www.computerworld.com/article/2497143/business-intelligence/business-intelligence-beginner-s-guide-to-r-introduction.html)
 
 ### Homework Assignment
-You can answer these questions right from RStudio in the Rmd file.  Make sure you save your answers!
+You can answer these questions right from RStudio in the Rmd file.  *Make sure you save your answers!*
 
-Question 1a: What are the variables (columns) of the world_pop dataset?
-Question 1b: What are the variables (columns) of the world_pop2 dataset?
-Question 1c: What are the variables (columns) of the world_pop3 dataset?
+* Question 1a: What are the variables (columns) of the world_pop dataset?
+* Question 1b: What are the variables (columns) of the world_pop2 dataset?
+* Question 1c: What are the variables (columns) of the world_pop3 dataset?
 
 The question about variables is important because variables are groups of observations.  The world_pop dataset variables are the different decades.  In this case, observations are continents.
 
-Question 2a: What is the mean population in 2000?  
-Question 2b: What is the median population in 2000?
-Question 2c: Why are they different?  Hint: take a look at the graph.
-Question 2d: What is the mean population of all of the continents in all of the years?  Hint: you will need to look at a different summary than the 'world_pop' dataset.
+* Question 2a: What is the mean population in 2000?  
+* Question 2b: What is the median population in 2000?
+* Question 2c: Why are they different?  Hint: take a look at the graph.
+* Question 2d: What is the mean population of all of the continents in all of the years?  
+Hint: you will need to look at a different summary than the 'world_pop' dataset.
 
-Question 3: What continent, other than Asia, is projected to grow substantially between 2000 and 2050?
-Question 4: What are some concerns that you might have as a water resources manager that this continent's population is growing so rapidly?
+* Question 3: What continent, other than Asia, is projected to grow substantially between 2000 and 2050?
+* Question 4: What are some concerns that you might have as a water resources manager that this continent's population is growing so rapidly?
 \newpage
 
 ### Reminders
