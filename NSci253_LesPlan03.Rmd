@@ -1,16 +1,18 @@
 ---
-title: "NSci233 Notes- Week 6"
+title: "NSci233 Notes- Weeks 6 - 7"
 author: "Charles Jason Tinant"
 date: "2/27/2018"
 output:
   html_document:
     df_print: paged
-subtitle: Lesson Plan 3 - Precipitation Week 3 of 4
+subtitle: Lesson Plan 3 - Precipitation
 fontsize: 12pt
 ---
+**This information is covered in Lesson Plan 4** 
+**Don't use this one.**
 
 ## Important Updates
-* Homework from Lesson Plans 1, 2, 3 is **due THIS FRIDAY**, March 3rd so that you are ready for the midterm.
+* Homework from Lesson Plans 1, 2 are overdue.  This lesson is **due THIS FRIDAY**, March 3rd so that you are ready for the midterm.
 
 * We are going to add another 30-minutes to class to give addional technical help (e.g. 9:00 - 12:30)
 
@@ -232,15 +234,15 @@ precip_event <- precip %>%
   filter(prcp != 0)
 
 # this is to check on NA values
-prcp_na <- prcp %>%
+prcp_na <- precip %>%
   filter(is.na(prcp))
 
 # this is to check on the dryest year
-prcp_test <- prcp %>%
+prcp_test <- precip %>%
   filter(year == "1961")
 
 # make an annual precipitation 
-prcp_ann <- prcp %>%
+prcp_ann <- precip %>%
   # make a group of the years so that we can see how much prcp per year
   group_by(year) %>%
   summarize(prcp = sum(prcp, na.rm = TRUE),
