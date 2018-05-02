@@ -1,7 +1,7 @@
 ---
-title: "NSci233 Notes- Week 12"
+title: "NSci233 Notes- Weeks 10 to 12"
 author: "Charles Jason Tinant"
-date: "4/10/2018"
+date: "4/16/2018"
 output:
   pdf_document: default
   html_document:
