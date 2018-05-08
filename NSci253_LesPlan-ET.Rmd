@@ -20,14 +20,52 @@ Evapotranspiration (ET) is the process that returns water to the atmosphere and 
 
 - *SLO3: Student teams are able solve a hydrology problem of local interest* - Students will be able to discuss water rights from a treaty perspective.
 
-
-
-
 ## Reading Assignment
-Chapter 4: Read sections 4.1 - 4.5.  Read 4.6 sections 4.6.1 - 4.6.2, 4.6.5.  Read 4.7 - 4.9.
+**Read** Chapter 4 sections 4.1 - 4.5, sections 4.6.1, 4.6.2, 4.6.5, and 4.7 - 4.9.
+
+**Scan** 
+[Water Budgets: Foundations for Effective Water-Resources and 
+Environmental Management](https://water.usgs.gov/watercensus/AdHocComm/Background/WaterBudgets-FoundationsforEffectiveWater-ResourcesandEnvironmentalManagement.pdf)
+
+[1868 Treaty](https://www.pbs.org/weta/thewest/resources/archives/four/ftlaram.htm) Articles II to IV, Article VII, Article X.  
+
+[Winters Doctrine Summary](https://en.wikipedia.org/wiki/Winters_v._United_States#Majority_opinion)
+
+[Practicably Irrigable Acreage](https://en.wikipedia.org/wiki/Winters_v._United_States#Majority_opinion) Section II pages 272-273
 
 ## Homework Assignment
-*Please work together during May 4, May 11, and May 18 class & recitation sessions.
+**Please work together during May 4, May 8, May 11, and May 15 recitation sessions.**
+
+1. Write the definitions of the following vocabulary terms: *evapotranspiration, evaporation, transpiration, latent heat of vaporization, insolation, vapor pressure deficit, saturation vapor pressure*. 
+
+2. What is the difference between *potential evapotranspiration (PET)*, and *actual evapotranspiration (AET)*?; b) where are some climates where PET >> AET?; c) what are two ways to measure PET and two ways to measure AET?  
+
+3. Describe the stages as a saturated bare soil dries?; b) what factors drives the rate of evaporation; c) how does this relate with *dry farming* practices in the West (including western South Dakota) prior to widespread irrigation?
+
+4. Describe four factors that affect transpiration rates, b) how do these factors relate to consumptive use?
+
+5. Go through the example problem on water balance below.  Now find the monthly AET for the following.  What is the annual AET in acre-ft for a 40 acre plot of land.
+
+| Month | P inch | Q inch |
+|:------:|:-----|---------|
+| 1  | 4 | 2 |
+| 2  | 2 | 3 |
+| 3  | 3 | 2 |
+| 4  | 3 | 2 |
+| 5  | 6 | 4 |
+| 6  | 7 | 5 |
+| 7  | 2 | 2 |
+| 8  | 3 | 2 |
+| 9  | 2 | 2 |
+| 10 | 4 | 3 |
+| 11 | 1 | 1 |
+| 12 | 1 | 0 |
+
+6. Describe the climate data needed for the following methods: Penman, Jensen-Haise, SCS Blaney-Criddle, Thorthwaithe.  b) why is the Thorthwaithe method use more often than the Penman method? Use the Meyer equation to
+
+* 2. Describe Dalton's Law and how it is used in the Meyer equation.
+* 2. Based on the 1868 Treaty, what are the purposes of the Great Sioux Reservation.  How does this link with hydrology? 
+
 \newpage
 
 ```{r setup, include=FALSE}
@@ -37,10 +75,195 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 ## In-class Notes with R-code
 ```{r library}
 # If you need to you should 'install.packages("here")'
-# library("tidyverse") # load the tidyverse package 
+library("tidyverse") # load the tidyverse package 
 # library("lubridate")
 # library("janitor")
 library("here")
 here::here() # this checks where R thinks the working directory is...
 ```
+
+## Evaporation process  
+Evaporation occurs when water moves from liquid to gas.  Water molecules area in constant motion between liquid and gas states.  When more molecules are leaving than are returning *net evaporation* occurs.  The energy a water molecule needs to cross the liquid - gas boundary is called the *latent heat of vaporization*, which is about 2.23 kJ of energy per gram of water.  The sun puts out a lot of energy.  In South Dakota the sun puts out about 1500 kWh per square meter of land per year.  This is enough energy to evaporate 2,400 liters of water per square meter of land per year under ideal evaporative conditions.  Fortunately, conditions are not ideal for evaporating water.  
+
+Water moves from liquid to vapor at different rates depending on how much sun is shining, how hot the liquid water is, and how much the wind is blowing.
+Water molecules leaving the liquid state become water vapor.  The water vapor is a gas and gasses exert a pressure.  Air can hold water expressed as *vapor pressure*, $e$.  When a packet of air is full of water it has reached *saturation vapor pressure*, $e_s$.  *Actual vapor pressure* is expressed as $e_d$  The amount of water vapor a packet of air can hold increases as temperature increases.  The rate at which water can move from liquid to vapor depends on the *vapor pressure deficit* $e_s - e_d$ and how fast the wet air is being blown away from the water surface by the wind.  
+
+* Read section 4.2.2 - PET vs AET  
+* Read section 4.2.3 - Evaporation from open water  
+* Read section 4.2.4 - Evaporation from bare soil
+
+## Evaporation from soil and plants
+* Read section 4.3.1 - Interception  
+* Read section 4.3.2 - Transpiration  
+
+## Measuring Evaporation or Transpiration
+One of the biggest challenges in hydrology is vapor flux is difficult to measure at scale.  So, most measuring methods measure the change of water in the system.
+
+* For **PET** measurement either pan evaporation or an ET gage works.  
+* For **AET** simpler and less expensive measurement is either by soil water depletion, or water balance.  More complex methods include lysometers or actually measuring the vapor flux.
+
+### Water Balance
+Water balance is often the approach used at the watershed scale.  Inflows and outflows are measured and what is left is the **AET**.  For the short-term, the water balance equation is:  
+$$AET = P - Q \pm \Delta G \pm \Delta \Theta$$
+Where: $AET$ is the actual evapotranspiration
+$P$ is precipitation depth
+$Q$ is runoff depth (e.g. streamflow)
+$\Delta G$ depth of groundwater inflow or outflow
+$\Delta \Theta$ is change in soil moisture
+
+Over a long term the equation simplifies to:  
+$$AET = P - Q$$
+You need to do a little unit conversion to see how this works out in practice.  Remember that the units of $P$ and $AET$ are measured in inches over some measuring period, usually a month.  We need to get $Q$ into the same units. Streamflow is reported in units of cfs, more specifically, the average daily flow in cubic feet per second.  To get to units that are a little closer to the equivilant depth, lets convert cfs to acre feet per day.
+
+$$1\frac{ft^3}{sec}*\frac{60sec}{min}*\frac{60min}{hr}*\frac{24hr}{day}= 86,400\frac{ft^3}{day}$$
+
+$$86,400\frac{ft^3}{day}*\frac{1acre}{43,560ft^2}= 1.982\frac{acreft}{day}$$
+Therefore, 
+$$1\frac{ft^3}{sec} = 1.982\frac{acreft}{day} *30\frac{day}{mo} = 59.4\frac{acreft}{mo}  $$
+
+Next - recall $vol = depth * area$, so by dividing the volume of flow by the watershed area you can find the *equivilant flow depth*.
+
+$$\frac{acreft}{mo} * \frac{1}{area_{acres}} * \frac{12in}{1ft} = 12\frac{in}{mon} $$
+
+Here is a made-up example for how a water balance works in practice.  The monthly flow data is made up from the example on page 46 of the USGS paper "Water Budgets: Foundations for Effective Water-Resources and Environmental Management".
+
+Imagine a 20-sqmi watershed with a raingage.  This made up example uses just one significant figure for the recorded rainfall in inches per month.  Also imagine that the streamflow is being recorded immediately upstream and downstream of this watershed so that the streamflow is just the runoff from this watershed.
+
+```{r water_balance_add_data}
+# monthly total precipitation in inches for a 150-square mile watershed
+precip <- c(1, 3, 4, 6, 6, 4, 4, 4, 2, 2, 3, 4, 3, 2, 3, 5, 5, 5, 3, 3,
+            1, 1, 5, 4) # vector
+precip <- as.data.frame(precip) %>%      # vector -> data.frame
+  rename(P_in = precip) # avoid problems by renaming the variable 
+
+# daily average streamflow in cfs
+streamflow <- c(11, 13, 14, 26, 56, 62, 34, 32, 28, 11, 9, 21, 44, 12, 13, 22, 25, 45, 50, 33, 28, 21, 43, 34) # vector
+
+streamflow <- as.data.frame(streamflow) %>%   # vector -> data.frame
+  rename(Q_cfs = streamflow)  # rename the variable 
+
+# bind the dataframes together with bind_col
+data <- bind_cols(precip, streamflow)
+rm(precip, streamflow)
+
+# add on the area to the dataframe and make a column for months
+data <- data %>%
+  mutate(area_sqmi = 20)
+
+data$month <- rownames(data)  # take the rownames and make them months
+
+data <- data %>%
+  mutate(month = as.integer(month)) %>%   # character -> integer
+  select(month,area_sqmi, everything())  # arrange order of cols
+```
+
+Graphing the data can help with understanding.  
+
+```{r water_balance_graph1}
+ggplot(data, aes(month)) +
+  geom_line(aes(y = P_in, color = "Precipitation, in inches")) +
+  geom_line(aes(y = Q_cfs/10, color = "Runoff, in tens of cfs")) +
+  scale_colour_manual(values = c("blue", "green")) +
+  ggtitle("Precipitation and Runoff of a Hypothetical Watershed") +
+  theme_classic() +
+  ylab("Water") +
+  labs(color = '') +
+  theme(legend.position = "bottom")
+
+
+```
+
+Using the averages is another way to get some ideas about your data.  We are going to use the average precipitation and streamflow to estimate about how much of the precipitation becomes streamflow.  
+
+```{r water_balance_summary}
+# check on the summary of the data
+summary(data)
+```
+
+```{r water_balance_check_data}
+# the average precip is about 3.5 in/mo = 42 in/yr
+P_ave <- 3.5 # in/mo
+# the streamflow is about 19 cfs
+Q_ave <- 27 # cubic feet per second
+area <- 20 # sqmi
+# lets use that information to help us to make sure we are on track
+
+# for precip
+P_vol <- P_ave/12 * area * 640   # in -> ft & sqmi -> acre, so acre-ft/mon
+# that's about 3,700 acre feet of water per month.
+
+# for streamflow
+Q_vol <- Q_ave * 1.98 * 30 # cfs -> acre-ft/day & day -> mon, so acre-ft/mon
+# thats 1,600 acre-feet of water per month
+
+P_Q_ratio <- Q_vol/P_vol
+# so we can guess there is about 40% as runoff
+```
+
+However, we still need to get the monthly streamflow to a depth.
+
+```{r water_balance_make_depths}
+# Calculate an effective depth of streamflow, or Q / A = depth/time
+# we could do this many different ways.  This way uses acre-ft
+
+# calculate watershed area in acres
+data <- data %>%
+  mutate(area_acres = area_sqmi * 640)
+
+# calculate streamflow volume as acre-ft/day & acre-ft/month
+data <- data %>%
+  mutate(Q_acft_mo = Q_cfs * 59.4) 
+
+# calculate streamflow and AET as inches per month
+data <- data %>%
+  mutate(Q_in = 12* Q_acft_mo/area_acres) %>%
+  select(-area_acres) %>%
+  select(-Q_acft_mo) %>%
+  mutate(AET = P_in - Q_in)
+
+# Calculate overall water budget
+# start by removing the old values 
+rm(area, P_ave, P_Q_ratio, P_vol, Q_ave, Q_vol)
+P_sum = sum(data$P_in)
+Q_sum = sum(data$Q_in)
+AET_sum = sum(data$AET)
+AET_percent = AET_sum/P_sum
+Q_percent = Q_sum/P_sum
+```
+
+So, over the two years of the study: the precipitation totaled `r P_sum` inches and the runoff totaled `r round(Q_sum, digits = 1)` inches.  AET for the watershed over the two years of the study is estimated to be  `r round(Q_sum, digits = 1)` inches.  The percentage of precipitation as runoff is `r round(100 * AET_percent, digits = 0)`--percent.
+
+Graphing the data can help with understanding.  The graph below would be better if it was a cumulative graph as shown on page 47 of "Water Budgets: Foundations for Effective Water-Resources and Environmental Management".
+
+```{r water_balance_graph2}
+ggplot(data, aes(month)) +
+  geom_line(aes(y = P_in, color = "Precipitation")) +
+  geom_line(aes(y = Q_in, color = "Runoff")) +
+  geom_line(aes(y = AET, color = "Actual ET")) +
+  scale_colour_manual(values = c("orange", "blue", "green")) +
+  ggtitle("Precipitation and Runoff of a Hypothetical Watershed") +
+  theme_classic() +
+  ylab("Water, in inches") +
+  labs(color = '') +
+  theme(legend.position = "bottom")
+```  
+
+## Weather Data and Evapotranspiration
+Researchers have developed many methods to estimate evaporation and ET from measured climate data.  The methods are about using available weather data to estimate the ET.  The theoretical basis for these methods is the vapor pressure deficit, solar radiation, and wind.  However, as these data are usually not available, proxies and empirical coefficents are used. The problem below provides an approach for evaporation from open water.
+
+### Vapor Pressure
+*Saturation vapor pressure*, $e_s$ depends only on temperature.  Warm air holds more water, so when air is chilled it can produce condensation.  The amount of moisture air can hold is nonlinear and is expressed by the following equation.   
+
+$$e_s = exp \left[ \frac{16.78T-116.9}{T+273.3} \right]$$
+
+Where: $e_s$ is the saturation vapor pressure in kilopascals
+$T$ is air temperature in degree Celsius
+
+Actual vapor pressure, $e_d$ is the water vapor pressure of the air.  To know the actual vapor pressure you need to know either the relative humidity, $RH$ or the dew point temperature.  The dew point is the temperature to which air must be cooled to become saturated with water vapor. When further cooled, the airborne water vapor will condense to form liquid water (dew). 
+
+$$e_d = e_s \times \frac{RH}{100}$$
+
+The rate at which water can move from liquid to vapor depends on the *vapor pressure deficit* $e_s - e_d$ and how fast the wet air is being blown away from the water surface by the wind.  
+
+Wind speed near the surface can be extrapolated using 
 
