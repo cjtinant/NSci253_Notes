@@ -61,12 +61,12 @@ Environmental Management](https://water.usgs.gov/watercensus/AdHocComm/Backgroun
 | 11 | 1 | 1 |
 | 12 | 1 | 0 |
 
-6. Describe the climate data needed for the following methods: Penman, Jensen-Haise, SCS Blaney-Criddle, Thorthwaithe.  b) why is the Thorthwaithe method use more often than the Penman method? Use the Meyer equation to
+6. Go through the example problem on vapor pressure deficit below.  What is the average vapor pressure deficit over the 24-hr period?  Looking through the data, what times is the actual vapor pressure at the dew point?  When in the day is the vapor pressure at a minimum and why?
 
-* 2. Describe Dalton's Law and how it is used in the Meyer equation.
-* 2. Based on the 1868 Treaty, what are the purposes of the Great Sioux Reservation.  How does this link with hydrology? 
+7 Describe the climate data needed for the following methods: Penman, Jensen-Haise, SCS Blaney-Criddle, Thorthwaithe.  b) why is the Thorthwaithe method used more often than the Penman method?
 
-\newpage
+8. What is the purpose of the Great Sioux Reservation?  What does the Winters doctrine say about Lakota rights to water?  What is the test to quantify reserved water following Arizona v. California?  
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
@@ -265,5 +265,24 @@ $$e_d = e_s \times \frac{RH}{100}$$
 
 The rate at which water can move from liquid to vapor depends on the *vapor pressure deficit* $e_s - e_d$ and how fast the wet air is being blown away from the water surface by the wind.  
 
-Wind speed near the surface can be extrapolated using 
+```{r vapor-pressure}
+rm(list = ls())
+hour   <- seq(1, 24, by = 1) # hours of the day 
+temp_C <- c(16.08, 15.28, 14.68, 14.25, 14.01, 13.13, 13.16, 14.38, 16.81, 20.68, 23.68, 26.70, 28.26, 29.19, 30.26, 30.78, 30.96, 30.92, 30.43, 29.56, 27.08, 23.6, 21.76, 20.78) # temperature degree C
+RH <- c(96.6, 98.4, 99, 99.3, 99.7, 100, 100, 100, 94.7, 81.6, 71.1, 62.9, 50.2, 49.3, 46.3, 45.7, 46.9, 47.8, 50.4, 58.7, 69.8, 83.2, 89.4, 93.5)
+
+# convert to dataframes
+hour <- as.data.frame(hour)
+temp_C <- as.data.frame(temp_C)
+RH <- as.data.frame(RH)
+
+# bind the dataframes together with bind_col
+data <- bind_cols(hour, temp_C, RH)
+rm(hour, temp_C, RH)
+
+data <- data %>%
+  mutate(e_s = exp((16.78 * temp_C - 116.9) / (temp_C + 237.3))) %>%
+  mutate(vap_def = e_s * (1 - RH/100))
+```
+
 
